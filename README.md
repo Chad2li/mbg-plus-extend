@@ -21,6 +21,65 @@ EmpDo emp = empMapper.selectOneByExample(ex);
 
 
 ### 使用
+- pom.xml
+```xml
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.5.6</version>
+</dependency>
+
+<!-- 使用 LocalDateTime 等工具 -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-typehandlers-jsr310</artifactId>
+    <version>1.0.2</version>
+</dependency>
+
+<!-- mysql jdbc -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.25</version>
+</dependency>
+
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>tk.mybatis</groupId>
+    <artifactId>mapper</artifactId>
+    <version>4.1.5</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- MBG -->
+<dependency>
+    <groupId>org.mybatis.generator</groupId>
+    <artifactId>mybatis-generator-core</artifactId>
+    <version>1.3.7</version>
+</dependency>
+
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- 本插件 -->
+<dependency>
+    <groupId>io.github.chad2li</groupId>
+    <artifactId>mbg-plus-extend</artifactId>
+    <version>1.0-RELEASE</version>
+    <scope>test</scope>
+</dependency>
+```
+
 - 参考    
 `src/test/java` : `io.github.chad2li.mbg.plugin.PropsPluginTest` 的 `addProps()` 方法
 - `generatorConfig.xml` 19 行    
