@@ -1,9 +1,17 @@
 package io.github.chad2li.mbg.plugin.dao;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.*;
 
+/**
+ * @author mbg plus extend
+ * @since 1 at 2022-06-09 17:54
+ */
 @Table(name = "emp")
 public class EmpDo implements Serializable {
     @Id
@@ -112,13 +120,26 @@ public class EmpDo implements Serializable {
         this.createTime = createTime;
     }
 
+    /**
+     * @author mbg plus extend
+     * @since 1 at 2022-06-09 17:54
+     */
     public static class Props {
         public static final String id = "id";
 
+        /**
+         * user name
+         */
         public static final String name = "name";
 
+        /**
+         * user age
+         */
         public static final String age = "age";
 
+        /**
+         * user email
+         */
         public static final String email = "email";
 
         public static final String createTime = "createTime";

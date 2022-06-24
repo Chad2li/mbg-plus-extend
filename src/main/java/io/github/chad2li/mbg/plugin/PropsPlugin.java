@@ -8,12 +8,16 @@ import org.mybatis.generator.api.dom.java.InnerClass;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
+import javax.persistence.Transient;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * TODO-类描述
+ * 生成 Do 对象静态内部类 Props，减少硬编码
  *
  * @author chad
+ * @
  * @since 1 create by chad at 2022/6/8 00:18
  */
 public class PropsPlugin extends PluginAdapter {
@@ -41,6 +45,21 @@ public class PropsPlugin extends PluginAdapter {
         return true;
     }
 
+    /**
+     * 给 {@code topLevelClass} 增加 Props 静态内部类，并映射所有属性名，忽略以下类型属性
+     * <p>
+     * 1. serialVersionUID <br/>
+     * 2. 被 transient 标记的  <br/>
+     * 3. final 标记的  <br/>
+     * 4. static 标记的  <br/>
+     * </p>
+     *
+     * @param topLevelClass
+     * @date 2022/6/9 08:22
+     * @author chad
+     * @since 1 by chad at 2022/6/7
+     * @since 2 by chad at 2002/6/9: 跳过 {@link Transient}，增加注释
+     */
     protected void addProps(TopLevelClass topLevelClass) {
         InnerClass innerClass = new InnerClass("Props");
         innerClass.setVisibility(JavaVisibility.PUBLIC);
@@ -61,6 +80,12 @@ public class PropsPlugin extends PluginAdapter {
             if (field.isStatic()) {
                 return;
             }
+            if (field.getAnnotations().contains(Transient.class)) {
+                return;
+            }
+            if (field.getAnnotations().contains(java.beans.Transient.class)) {
+                return;
+            }
 
             Field fieldProp = new Field(fieldName, new FullyQualifiedJavaType("java.lang.String"));
 
@@ -68,10 +93,26 @@ public class PropsPlugin extends PluginAdapter {
             fieldProp.setFinal(true);
             fieldProp.setStatic(true);
             fieldProp.setInitializationString("\"" + fieldName + "\"");
+            // 注释
+            for (String javaDocLine : field.getJavaDocLines()) {
+                fieldProp.addJavaDocLine(javaDocLine);
+            }
 
             innerClass.addField(fieldProp);
         });
 
         topLevelClass.addInnerClass(innerClass);
+
+        // topLevelClass 增加类注释
+        topLevelClass.addJavaDocLine("/**");
+        topLevelClass.addJavaDocLine(" * @author mbg plus extend");
+        topLevelClass.addJavaDocLine(" * @since 1 at " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        topLevelClass.addJavaDocLine(" */");
+
+        // Props 增加类注释
+        innerClass.addJavaDocLine("/**");
+        innerClass.addJavaDocLine(" * @author mbg plus extend");
+        innerClass.addJavaDocLine(" * @since 1 at " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        innerClass.addJavaDocLine(" */");
     }
 }
