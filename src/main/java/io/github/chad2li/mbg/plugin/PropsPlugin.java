@@ -65,29 +65,31 @@ public class PropsPlugin extends PluginAdapter {
         innerClass.setVisibility(JavaVisibility.PUBLIC);
         innerClass.setStatic(true);
         List<Field> fields = topLevelClass.getFields();
-        fields.forEach(field -> {
+        for (Field field : fields) {
             String fieldName = field.getName();
 
             if ("serialVersionUID".equalsIgnoreCase(fieldName)) {
-                return;
+                continue;
             }
             if (field.isTransient()) {
-                return;
+                continue;
             }
             if (field.isFinal()) {
-                return;
+                continue;
             }
             if (field.isStatic()) {
-                return;
+                continue;
             }
             if (field.getAnnotations().contains(Transient.class)) {
-                return;
+                continue;
             }
             if (field.getAnnotations().contains(java.beans.Transient.class)) {
-                return;
+                continue;
             }
+            // 转常量规范
+            String fieldNameUpper = PropsUtil.upperCase(fieldName);
 
-            Field fieldProp = new Field(fieldName, new FullyQualifiedJavaType("java.lang.String"));
+            Field fieldProp = new Field(fieldNameUpper, new FullyQualifiedJavaType("java.lang.String"));
 
             fieldProp.setVisibility(JavaVisibility.PUBLIC);
             fieldProp.setFinal(true);
@@ -99,7 +101,7 @@ public class PropsPlugin extends PluginAdapter {
             }
 
             innerClass.addField(fieldProp);
-        });
+        }
 
         topLevelClass.addInnerClass(innerClass);
 
