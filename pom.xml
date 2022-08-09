@@ -6,7 +6,7 @@
 
     <groupId>io.github.chad2li</groupId>
     <artifactId>mbg-plus-extend</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>${project.artifactId}</name>
     <description>MBG 插件扩展</description>
     <url>https://github.com/chad2li/${project.artifactId}</url>
