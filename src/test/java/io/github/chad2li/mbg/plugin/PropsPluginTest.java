@@ -24,7 +24,7 @@ public class PropsPluginTest {
 
         Example ex = new Example(EmpDo.class);
         ex.createCriteria()
-        .andEqualTo(EmpDo.Props.name, "ZhangSan");
+        .andEqualTo(EmpDo.Props.NAME, "ZhangSan");
 
         EmpDo emp = empMapper.selectOneByExample(ex);
     }

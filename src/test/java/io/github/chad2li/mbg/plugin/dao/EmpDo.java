@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author mbg plus extend
- * @since 1 at 2022-06-09 17:54
+ * @since 1 at 2022-08-09 16:44
  */
 @Table(name = "emp")
 public class EmpDo implements Serializable {
@@ -122,26 +122,26 @@ public class EmpDo implements Serializable {
 
     /**
      * @author mbg plus extend
-     * @since 1 at 2022-06-09 17:54
+     * @since 1 at 2022-08-09 16:44
      */
     public static class Props {
-        public static final String id = "id";
+        public static final String ID = "id";
 
         /**
          * user name
          */
-        public static final String name = "name";
+        public static final String NAME = "name";
 
         /**
          * user age
          */
-        public static final String age = "age";
+        public static final String AGE = "age";
 
         /**
          * user email
          */
-        public static final String email = "email";
+        public static final String EMAIL = "email";
 
-        public static final String createTime = "createTime";
+        public static final String CREATE_TIME = "createTime";
     }
 }
